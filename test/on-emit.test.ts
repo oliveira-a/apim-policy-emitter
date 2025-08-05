@@ -1,11 +1,16 @@
-import { strictEqual } from "node:assert";
+import { ok } from "node:assert";
 import { describe, it } from "node:test";
 import { emit } from "./test-host.js";
 
 describe("$onEmit", () => {
-  it("emits output.txt with content hello world", async () => {
-    const results = await emit(`op GetUser(): void;`);
+  it("creates a directory with the name set as the api", async () => {
+    const results = await emit(`
+      using Andreb.ApimPolicyEmitter;
 
-    strictEqual(results["output.txt"], "Hello world\n");
+      @api("user")
+      namespace UserEndpoints;
+    `);
+
+    ok("user" in results);
   });
 });
