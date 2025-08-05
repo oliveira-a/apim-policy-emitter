@@ -16,15 +16,16 @@ export async function $onEmit(context: EmitContext) {
     const apiName = getApi(context.program, ns);
     if (!apiName) continue;
 
+    const policyFile = resolvePath(
+      context.emitterOutputDir,
+      "user",
+      "policy.xml",
+    );
     await emitFile(context.program, {
-      path: resolvePath(context.emitterOutputDir, apiName, "policy.xml"),
-      content: generateXmlPolicy(),
+      path: policyFile,
+      content: "todo\n",
     });
   }
-}
-
-function generateXmlPolicy(): string {
-  return "todo\n";
 }
 
 function* walkNamespaces(ns: Namespace): Iterable<Namespace> {
